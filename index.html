@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lakshan Jayawardana | Computer Science & Engineering Undergraduate Portfolio</title>
+    <meta name="description"
+        content="Portfolio of Lakshan Jayawardana, a Computer Science & Engineering undergraduate at the University of Moratuwa specializing in IoT architectures, VHDL & FPGA design, and Full-Stack Web Development.">
+    <!-- Google Fonts: Outfit (headings) & Inter (body) & JetBrains Mono (code elements) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-theme">
+    <!-- Particle Background Canvas -->
+    <canvas id="canvas-bg"></canvas>
+
+    <!-- Header Navigation -->
+    <header class="header">
+        <div class="header-container">
+            <a href="#home" class="logo">
+                <span class="code-bracket">&lt;</span>
+                <span class="logo-text">lakshan.dev</span>
+                <span class="code-bracket">/&gt;</span>
+            </a>
+
+            <nav class="navbar" id="navbar">
+                <ul class="nav-menu">
+                    <li class="nav-item"><a href="#home" class="nav-link active">Home</a></li>
+                    <li class="nav-item"><a href="#about" class="nav-link">About</a></li>
+                    <li class="nav-item"><a href="#experience" class="nav-link">Experience</a></li>
+                    <li class="nav-item"><a href="#skills" class="nav-link">Skills</a></li>
+                    <li class="nav-item"><a href="#projects" class="nav-link">Projects</a></li>
+                    <li class="nav-item"><a href="#contact" class="nav-link">Contact</a></li>
+                </ul>
+            </nav>
+
+            <div class="nav-actions">
+                <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle light/dark theme">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+                <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="hero-content">
+            <div class="terminal-badge">
+                <span class="terminal-dot red"></span>
+                <span class="terminal-dot yellow"></span>
+                <span class="terminal-dot green"></span>
+                <span class="terminal-text">std::cout &lt;&lt; "Hello World!";</span>
+            </div>
+            <h1 class="hero-title">Lakshan Jayawardana</h1>
+            <h2 class="hero-subtitle">I'm a <span id="typed-text"></span><span class="typed-cursor">|</span></h2>
+            <p class="hero-description">
+                A motivated Computer Science & Engineering undergraduate at the University of Moratuwa. Eager to apply
+                technical skills in IoT architectures, hardware design (VHDL), and software development to solve
+                real-world engineering challenges.
+            </p>
+            <div class="hero-cta">
+                <a href="#projects" class="btn btn-primary">
+                    <i class="fa-solid fa-code-branch"></i> View Projects
+                </a>
+                <a href="CV_Lakshan_Jayawardana.pdf" class="btn btn-secondary" target="_blank"
+                    download="CV_Lakshan_Jayawardana.pdf">
+                    <i class="fa-solid fa-file-pdf"></i> Download CV
+                </a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <a href="#about" aria-label="Scroll down">
+                <span class="mouse">
+                    <span class="wheel"></span>
+                </span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- About Section -->
+        <section id="about" class="about-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">01.</span>
+                    <h2 class="section-title">About Me</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="about-grid">
+                    <div class="about-info">
+                        <p class="paragraph-lead">
+                            Hello! I am a Computer Science & Engineering undergraduate at the University of Moratuwa
+                            with a passion for designing connected hardware systems and building responsive software.
+                        </p>
+                        <p>
+                            My academic journey is focused on developing robust and efficient solutions. I have
+                            experience designing custom digital systems (such as a VHDL 4-bit nanoprocessor) and
+                            implementing IoT architectures complete with real-time dashboards, environmental sensor
+                            networks, and solar energy integration.
+                        </p>
+                        <p>
+                            I enjoy team-based projects and cross-functional collaborations, bringing hands-on
+                            experience in planning, design coordination, and customer-facing operations. I am always
+                            excited to learn new tools and framework stacks to solve complex technical problems.
+                        </p>
+                        <div class="stats-grid">
+                            <div class="stat-card">
+                                <h3 class="stat-num">3As</h3>
+                                <p class="stat-label">A/L Physical Science</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3 class="stat-num">9As</h3>
+                                <p class="stat-label">GCE Ordinary Level</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3 class="stat-num">3</h3>
+                                <p class="stat-label">Group Projects</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-education">
+                        <div class="card glass-card education-card">
+                            <div class="card-header">
+                                <i class="fa-solid fa-graduation-cap card-icon"></i>
+                                <h3>Education</h3>
+                            </div>
+                            <div class="education-item" style="margin-bottom: 1.5rem;">
+                                <h4 class="edu-degree">B.Sc. in Computer Science & Engineering</h4>
+                                <p class="edu-school">University of Moratuwa</p>
+                                <span class="edu-date">2024 — Present (1st Year)</span>
+                            </div>
+                            <div class="education-item" style="margin-bottom: 1.5rem;">
+                                <h4 class="edu-degree">GCE Advanced Level (Physical Science)</h4>
+                                <p class="edu-school">Govt. Science College, Matale</p>
+                                <span class="edu-date">2019 — 2023</span>
+                            </div>
+                            <div class="education-item">
+                                <h4 class="edu-degree">Secondary & Primary Education</h4>
+                                <p class="edu-school">Ovilikanda Maha Vidyalaya, Matale</p>
+                                <span class="edu-date">2010 — 2018</span>
+                            </div>
+                        </div>
+
+                        <div class="card glass-card coursework-card">
+                            <div class="card-header">
+                                <i class="fa-solid fa-book card-icon"></i>
+                                <h3>Relevant Coursework</h3>
+                            </div>
+                            <div class="coursework-tags">
+                                <span class="course-tag">Programming</span>
+                                <span class="course-tag">Data Structures</span>
+                                <span class="course-tag">Software Engineering</span>
+                                <span class="course-tag">Computer Systems</span>
+                                <span class="course-tag">Digital Logic Design</span>
+                                <span class="course-tag">VHDL / FPGA</span>
+                                <span class="course-tag">Database Management</span>
+                                <span class="course-tag">Basic Web Development</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="experience-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">02.</span>
+                    <h2 class="section-title">Work Experience</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="experience-timeline">
+                    <!-- Item 1: Engineering Intern -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="card glass-card timeline-content">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3 class="job-title">Engineering Intern <span>— Planning</span></h3>
+                                    <div class="job-company">
+                                        <a href="https://dspcontrols.lk" target="_blank" rel="noopener noreferrer">DSP
+                                            Controls (Pvt) Ltd, Sri Lanka</a>
+                                    </div>
+                                </div>
+                                <span class="job-date">2024 (4 months)</span>
+                            </div>
+                            <ul class="job-details">
+                                <li>Worked as part of an engineering team on multiple projects across the company's
+                                    portfolio</li>
+                                <li>Contributed to project planning, design coordination, and the preparation of ducting
+                                    layout plans</li>
+                                <li>Gained hands-on exposure to engineering workflows, technical drawings, and
+                                    cross-functional collaboration</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Item 2: Trainee - Banking Operations -->
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="card glass-card timeline-content">
+                            <div class="timeline-header">
+                                <div>
+                                    <h3 class="job-title">Trainee <span>— Banking Operations</span></h3>
+                                    <div class="job-company">People's Bank, Matale Branch</div>
+                                </div>
+                                <span class="job-date">2024 (6 months)</span>
+                            </div>
+                            <ul class="job-details">
+                                <li>Assisted with day-to-day banking operations and customer-facing transactions at the
+                                    Matale branch</li>
+                                <li>Gained practical exposure to financial record-keeping, data management, and customer
+                                    service workflows</li>
+                                <li>Developed strong attention to detail and organizational skills in a professional
+                                    work environment</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">03.</span>
+                    <h2 class="section-title">Technical Stack</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="skills-grid">
+                    <!-- Programming & Software -->
+                    <div class="card glass-card skill-category-card">
+                        <h3 class="skill-category-title"><i class="fa-solid fa-code"></i> Programming & Software</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Python</span>
+                                    <span class="skill-pct">85%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Java / C++</span>
+                                    <span class="skill-pct">80%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">React & Web Development</span>
+                                    <span class="skill-pct">75%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Database Management & SQL</span>
+                                    <span class="skill-pct">75%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hardware & Systems -->
+                    <div class="card glass-card skill-category-card">
+                        <h3 class="skill-category-title"><i class="fa-solid fa-microchip"></i> Hardware & Systems</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">VHDL & Digital Circuit Design</span>
+                                    <span class="skill-pct">80%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">FPGA (BASYS 3)</span>
+                                    <span class="skill-pct">75%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 75%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Vivado & VS Code</span>
+                                    <span class="skill-pct">80%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Git & GitHub</span>
+                                    <span class="skill-pct">85%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 85%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Languages & Productivity -->
+                    <div class="card glass-card skill-category-card">
+                        <h3 class="skill-category-title"><i class="fa-solid fa-language"></i> Communication & Tools</h3>
+                        <div class="skill-list">
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">Sinhala (Native Fluency)</span>
+                                    <span class="skill-pct">100%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 100%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">English (Professional Proficiency)</span>
+                                    <span class="skill-pct">90%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info">
+                                    <span class="skill-name">MS Office & Productivity</span>
+                                    <span class="skill-pct">95%</span>
+                                </div>
+                                <div class="skill-bar-bg">
+                                    <div class="skill-bar-fill" style="width: 95%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">04.</span>
+                    <h2 class="section-title">My Projects</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <!-- Projects Filter -->
+                <div class="project-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="web">Full Stack</button>
+                    <button class="filter-btn" data-filter="iot">IoT & Embedded</button>
+                    <button class="filter-btn" data-filter="hw">Hardware & HDL</button>
+                </div>
+
+                <!-- Projects Grid -->
+                <div class="projects-grid">
+                    <!-- Project 1: UniMed -->
+                    <div class="project-card glass-card" data-category="web">
+                        <div class="project-img-placeholder">
+                            <i class="fa-solid fa-microphone-lines project-banner-icon"></i>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-meta">
+                                <span class="project-type">Full Stack & Speech Recognition</span>
+                                <span class="project-year"
+                                    style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary-color);">2026</span>
+                            </div>
+                            <h3 class="project-title">UniMed: Digital Medical Record System</h3>
+                            <p class="project-desc">
+                                Web-based system to digitize student medical records. Features a Voice-to-Text interface
+                                enabling doctors to record diagnoses verbally with manual correction, and a secure
+                                centralized database.
+                            </p>
+                            <div class="project-tech-tags">
+                                <span>React</span>
+                                <span>Flask</span>
+                                <span>HTML/CSS</span>
+                                <span>JavaScript</span>
+                                <span>MySQL</span>
+                                <span>Voice-to-Text</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/Kamithaakash/UniMed-MORASHIFT" target="_blank"
+                                    rel="noopener noreferrer" aria-label="GitHub Repository"><i
+                                        class="fa-brands fa-github"></i> Source</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Nanoprocessor Design -->
+                    <div class="project-card glass-card" data-category="hw">
+                        <div class="project-img-placeholder">
+                            <i class="fa-solid fa-microchip project-banner-icon"></i>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-meta">
+                                <span class="project-type">Hardware Design & HDL</span>
+                                <span class="project-year"
+                                    style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary-color);">2026</span>
+                            </div>
+                            <h3 class="project-title">Nanoprocessor Design: 4-bit Custom Processor</h3>
+                            <p class="project-desc">
+                                Designed and implemented a 4-bit custom nanoprocessor in VHDL capable of executing a
+                                custom instruction set (MOVI, ADD, NEG, JZR). Completed as a group project.
+                            </p>
+                            <div class="project-tech-tags">
+                                <span>VHDL</span>
+                                <span>Vivado</span>
+                                <span>BASYS 3 FPGA</span>
+                                <span>Digital Design</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/LakshanSj/4bit-nanoprocessor" target="_blank"
+                                    rel="noopener noreferrer" aria-label="GitHub Repository"><i
+                                        class="fa-brands fa-github"></i> Source</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3: Smart Dustbin -->
+                    <div class="project-card glass-card" data-category="iot">
+                        <div class="project-img-placeholder">
+                            <i class="fa-solid fa-trash-can project-banner-icon"></i>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-meta">
+                                <span class="project-type">IoT & Waste Management</span>
+                                <span class="project-year"
+                                    style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: var(--primary-color);">2025</span>
+                            </div>
+                            <h3 class="project-title">Smart Dustbin IoT System</h3>
+                            <p class="project-desc">
+                                Waste management system with ultrasonic and weight fill-level sensors, methane odour
+                                detection, solar energy harvesting, real-time City Council alerts, and a mobile app.
+                            </p>
+                            <div class="project-tech-tags">
+                                <span>IoT Sensors</span>
+                                <span>Solar Energy</span>
+                                <span>ESP32</span>
+                                <span>Mobile Integration</span>
+                                <span>Firebase</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://github.com/LakshanSj/smart-dustbin-waste-management-system"
+                                    target="_blank" rel="noopener noreferrer" aria-label="GitHub Repository"><i
+                                        class="fa-brands fa-github"></i> Source</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section section-padding">
+            <div class="container">
+                <div class="section-header">
+                    <span class="section-number">05.</span>
+                    <h2 class="section-title">Get In Touch</h2>
+                    <div class="section-line"></div>
+                </div>
+
+                <div class="contact-grid">
+                    <div class="contact-info">
+                        <h3 class="contact-subtitle">Let's Discuss Collaborations</h3>
+                        <p>
+                            I'm open to discussing software engineering internships, research collaborations,
+                            open-source projects, or systems architecture. Drop me a message and I'll get back to you as
+                            soon as possible.
+                        </p>
+                        <div class="contact-details">
+                            <div class="contact-detail-item">
+                                <i class="fa-solid fa-envelope detail-icon"></i>
+                                <div>
+                                    <span class="detail-label">Email Me</span>
+                                    <a href="mailto:lakshanj.24@cse.mrt.ac.lk"
+                                        class="detail-value">lakshanj.24@cse.mrt.ac.lk</a>
+                                </div>
+                            </div>
+                            <div class="contact-detail-item">
+                                <i class="fa-solid fa-phone detail-icon"></i>
+                                <div>
+                                    <span class="detail-label">Call Me</span>
+                                    <a href="tel:+94713215390" class="detail-value">+94 71 321 5390</a>
+                                </div>
+                            </div>
+                            <div class="contact-detail-item">
+                                <i class="fa-solid fa-location-dot detail-icon"></i>
+                                <div>
+                                    <span class="detail-label">Location</span>
+                                    <span class="detail-value">No. 44/2, Ovilikanda, Matale, Sri Lanka</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="social-links">
+                            <a href="https://github.com/LakshanSj" target="_blank" rel="noopener noreferrer"
+                                aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                            <a href="https://www.linkedin.com/in/lakshan-jayawardana/" target="_blank"
+                                rel="noopener noreferrer" aria-label="LinkedIn"><i
+                                    class="fa-brands fa-linkedin-in"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="card glass-card contact-card">
+                        <form id="contact-form" class="contact-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <input type="text" id="name" name="name" required placeholder=" ">
+                                    <label for="name">Your Name</label>
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" id="email" name="email" required placeholder=" ">
+                                    <label for="email">Your Email</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" id="subject" name="subject" required placeholder=" ">
+                                <label for="subject">Subject</label>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
+                                <label for="message">Message Body</label>
+                            </div>
+                            <button type="submit" id="submit-btn" class="btn btn-primary btn-submit">
+                                <span>compile &amp;&amp; send</span>
+                                <i class="fa-solid fa-paper-plane btn-icon"></i>
+                            </button>
+                            <div id="form-status" class="form-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-container">
+            <p class="copyright">&copy; 2026 Lakshan Jayawardana. Built with HTML, CSS, and Vanilla JavaScript.</p>
+            <p class="footer-tag">system.status = "Operational";</p>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="script.js"></script>
+</body>
+
+</html>
