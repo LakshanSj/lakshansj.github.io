@@ -30,13 +30,13 @@
             <form id="auth-form">
                 <div class="auth-input-group">
                     <label for="admin-pin">Security PIN</label>
-                    <input type="password" id="admin-pin" class="auth-input" placeholder="••••" maxlength="8" autofocus required>
+                    <input type="password" id="admin-pin" class="auth-input" placeholder="••••" maxlength="8" autofocus
+                        required>
                 </div>
                 <button type="submit" class="auth-btn">
                     <i class="fa-solid fa-lock-open"></i> Unlock Dashboard
                 </button>
             </form>
-            <p class="auth-hint"><i class="fa-solid fa-key"></i> Default PIN is <code>1234</code></p>
         </div>
     </div>
 
@@ -120,7 +120,8 @@
                     <button id="btn-export-json" class="btn btn-secondary" title="Export current data as JSON">
                         <i class="fa-solid fa-download"></i> Export JSON
                     </button>
-                    <label class="btn btn-secondary" style="margin: 0; cursor: pointer;" title="Import portfolio JSON backup">
+                    <label class="btn btn-secondary" style="margin: 0; cursor: pointer;"
+                        title="Import portfolio JSON backup">
                         <i class="fa-solid fa-upload"></i> Import JSON
                         <input type="file" id="input-import-json" accept=".json" style="display: none;">
                     </label>
@@ -136,21 +137,26 @@
                     <div class="admin-card">
                         <div class="card-header-bar">
                             <h3><i class="fa-solid fa-gauge-high"></i> Dashboard Quick Stats</h3>
-                            <span class="tag-badge" id="stats-last-updated"><i class="fa-solid fa-clock"></i> Active Session</span>
+                            <span class="tag-badge" id="stats-last-updated"><i class="fa-solid fa-clock"></i> Active
+                                Session</span>
                         </div>
                         <div class="form-grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));">
                             <div class="dynamic-item-card" style="text-align: center; padding: 1.5rem;">
-                                <i class="fa-solid fa-cubes-stacked" style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
+                                <i class="fa-solid fa-cubes-stacked"
+                                    style="font-size: 2rem; color: var(--primary-color); margin-bottom: 0.5rem;"></i>
                                 <h4 style="font-size: 1.8rem; font-family: var(--font-mono);" id="count-projects">0</h4>
                                 <p style="color: var(--text-muted); font-size: 0.85rem;">Active Projects</p>
                             </div>
                             <div class="dynamic-item-card" style="text-align: center; padding: 1.5rem;">
-                                <i class="fa-solid fa-briefcase" style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 0.5rem;"></i>
-                                <h4 style="font-size: 1.8rem; font-family: var(--font-mono);" id="count-experience">0</h4>
+                                <i class="fa-solid fa-briefcase"
+                                    style="font-size: 2rem; color: var(--secondary-color); margin-bottom: 0.5rem;"></i>
+                                <h4 style="font-size: 1.8rem; font-family: var(--font-mono);" id="count-experience">0
+                                </h4>
                                 <p style="color: var(--text-muted); font-size: 0.85rem;">Work Experiences</p>
                             </div>
                             <div class="dynamic-item-card" style="text-align: center; padding: 1.5rem;">
-                                <i class="fa-solid fa-code" style="font-size: 2rem; color: var(--accent-emerald); margin-bottom: 0.5rem;"></i>
+                                <i class="fa-solid fa-code"
+                                    style="font-size: 2rem; color: var(--accent-emerald); margin-bottom: 0.5rem;"></i>
                                 <h4 style="font-size: 1.8rem; font-family: var(--font-mono);" id="count-skills">0</h4>
                                 <p style="color: var(--text-muted); font-size: 0.85rem;">Skills Categories</p>
                             </div>
@@ -162,13 +168,18 @@
                             <h3><i class="fa-solid fa-bolt"></i> Quick Jump & Actions</h3>
                         </div>
                         <p style="color: var(--text-muted); margin-bottom: 1.25rem;">
-                            Click any section below to start editing. Changes made are saved directly to your browser's local storage and can be pushed to GitHub with 1-click.
+                            Click any section below to start editing. Changes made are saved directly to your browser's
+                            local storage and can be pushed to GitHub with 1-click.
                         </p>
                         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-                            <button class="btn btn-secondary" onclick="switchTab('projects')"><i class="fa-solid fa-plus"></i> Add New Project</button>
-                            <button class="btn btn-secondary" onclick="switchTab('about')"><i class="fa-solid fa-image"></i> Change Profile Photo</button>
-                            <button class="btn btn-secondary" onclick="switchTab('experience')"><i class="fa-solid fa-briefcase"></i> Add Experience</button>
-                            <button class="btn btn-secondary" onclick="switchTab('sync')"><i class="fa-brands fa-github"></i> 1-Click GitHub Sync</button>
+                            <button class="btn btn-secondary" onclick="switchTab('projects')"><i
+                                    class="fa-solid fa-plus"></i> Add New Project</button>
+                            <button class="btn btn-secondary" onclick="switchTab('about')"><i
+                                    class="fa-solid fa-image"></i> Change Profile Photo</button>
+                            <button class="btn btn-secondary" onclick="switchTab('experience')"><i
+                                    class="fa-solid fa-briefcase"></i> Add Experience</button>
+                            <button class="btn btn-secondary" onclick="switchTab('sync')"><i
+                                    class="fa-brands fa-github"></i> 1-Click GitHub Sync</button>
                         </div>
                     </div>
                 </div>
@@ -182,29 +193,36 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label class="form-label" for="hero-terminal">Terminal Code Tag</label>
-                                <input type="text" id="hero-terminal" class="form-control" placeholder='std::cout << "Hello World!";'>
+                                <input type="text" id="hero-terminal" class="form-control"
+                                    placeholder='std::cout << "Hello World!";'>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="hero-name-input">Full Name / Heading</label>
-                                <input type="text" id="hero-name-input" class="form-control" placeholder="Lakshan Jayawardana">
+                                <input type="text" id="hero-name-input" class="form-control"
+                                    placeholder="Lakshan Jayawardana">
                             </div>
                             <div class="form-group full-width">
-                                <label class="form-label">Dynamic Typing Roles <span class="form-label-hint">Press Enter or click + to add phrases</span></label>
+                                <label class="form-label">Dynamic Typing Roles <span class="form-label-hint">Press Enter
+                                        or click + to add phrases</span></label>
                                 <div class="tags-manager" id="hero-roles-manager">
-                                    <input type="text" id="hero-role-input" class="tag-input" placeholder="Add typing title (e.g. Full-Stack Web Developer)...">
+                                    <input type="text" id="hero-role-input" class="tag-input"
+                                        placeholder="Add typing title (e.g. Full-Stack Web Developer)...">
                                 </div>
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label" for="hero-desc-input">Hero Intro Biography</label>
-                                <textarea id="hero-desc-input" class="form-control" rows="3" placeholder="A motivated Computer Science & Engineering undergraduate..."></textarea>
+                                <textarea id="hero-desc-input" class="form-control" rows="3"
+                                    placeholder="A motivated Computer Science & Engineering undergraduate..."></textarea>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="hero-cv-url">CV / Resume File Path or URL</label>
-                                <input type="text" id="hero-cv-url" class="form-control" placeholder="assets/CV_Lakshan_Jayawardana.pdf">
+                                <input type="text" id="hero-cv-url" class="form-control"
+                                    placeholder="assets/CV_Lakshan_Jayawardana.pdf">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="hero-cv-name">CV Download Filename</label>
-                                <input type="text" id="hero-cv-name" class="form-control" placeholder="CV_Lakshan_Jayawardana.pdf">
+                                <input type="text" id="hero-cv-name" class="form-control"
+                                    placeholder="CV_Lakshan_Jayawardana.pdf">
                             </div>
                         </div>
                     </div>
@@ -224,13 +242,16 @@
                             <div class="image-upload-actions">
                                 <label class="form-label">Upload New Photo or Enter Image URL</label>
                                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                    <input type="text" id="about-img-url" class="form-control" placeholder="assets/image.jpg or https://..." style="flex: 1; min-width: 200px;">
+                                    <input type="text" id="about-img-url" class="form-control"
+                                        placeholder="assets/image.jpg or https://..."
+                                        style="flex: 1; min-width: 200px;">
                                     <label class="btn btn-secondary" style="margin: 0; cursor: pointer;">
                                         <i class="fa-solid fa-file-image"></i> Browse Local File
                                         <input type="file" id="about-img-file" accept="image/*" style="display: none;">
                                     </label>
                                 </div>
-                                <span class="form-label-hint">Local images are automatically optimized and encoded for instant preview and GitHub sync.</span>
+                                <span class="form-label-hint">Local images are automatically optimized and encoded for
+                                    instant preview and GitHub sync.</span>
                             </div>
                         </div>
                     </div>
@@ -245,7 +266,8 @@
                             <textarea id="about-lead-input" class="form-control" rows="2"></textarea>
                         </div>
                         <div class="form-group">
-                            <label class="form-label">Additional Bio Paragraphs <span class="form-label-hint">Separate paragraphs with double newlines</span></label>
+                            <label class="form-label">Additional Bio Paragraphs <span class="form-label-hint">Separate
+                                    paragraphs with double newlines</span></label>
                             <textarea id="about-paragraphs-input" class="form-control" rows="4"></textarea>
                         </div>
                     </div>
@@ -264,7 +286,8 @@
                     <div class="admin-card">
                         <div class="card-header-bar">
                             <h3><i class="fa-solid fa-graduation-cap"></i> Education Timeline</h3>
-                            <button class="btn btn-secondary btn-sm" id="btn-add-education"><i class="fa-solid fa-plus"></i> Add Education</button>
+                            <button class="btn btn-secondary btn-sm" id="btn-add-education"><i
+                                    class="fa-solid fa-plus"></i> Add Education</button>
                         </div>
                         <div id="education-items-manager">
                             <!-- Populated dynamically -->
@@ -277,7 +300,8 @@
                             <h3><i class="fa-solid fa-book"></i> Relevant Coursework Badges</h3>
                         </div>
                         <div class="tags-manager" id="coursework-tags-manager">
-                            <input type="text" id="coursework-tag-input" class="tag-input" placeholder="Add coursework (e.g. Data Structures)...">
+                            <input type="text" id="coursework-tag-input" class="tag-input"
+                                placeholder="Add coursework (e.g. Data Structures)...">
                         </div>
                     </div>
                 </div>
@@ -287,7 +311,8 @@
                     <div class="admin-card">
                         <div class="card-header-bar">
                             <h3><i class="fa-solid fa-briefcase"></i> Work Experience Timeline</h3>
-                            <button class="btn btn-primary" id="btn-add-experience"><i class="fa-solid fa-plus"></i> Add Experience</button>
+                            <button class="btn btn-primary" id="btn-add-experience"><i class="fa-solid fa-plus"></i> Add
+                                Experience</button>
                         </div>
                         <div id="experience-items-manager">
                             <!-- Populated dynamically -->
@@ -300,7 +325,8 @@
                     <div class="admin-card">
                         <div class="card-header-bar">
                             <h3><i class="fa-solid fa-microchip"></i> Technical Stack Categories & Skills</h3>
-                            <button class="btn btn-primary" id="btn-add-skill-cat"><i class="fa-solid fa-plus"></i> Add Category</button>
+                            <button class="btn btn-primary" id="btn-add-skill-cat"><i class="fa-solid fa-plus"></i> Add
+                                Category</button>
                         </div>
                         <div id="skills-categories-manager">
                             <!-- Populated dynamically -->
@@ -315,10 +341,12 @@
                             <div>
                                 <h3><i class="fa-solid fa-cubes-stacked"></i> Projects Studio</h3>
                                 <p style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.25rem;">
-                                    <i class="fa-solid fa-hand"></i> Drag and drop rows up/down to reorder projects on your live portfolio.
+                                    <i class="fa-solid fa-hand"></i> Drag and drop rows up/down to reorder projects on
+                                    your live portfolio.
                                 </p>
                             </div>
-                            <button class="btn btn-primary" id="btn-add-project"><i class="fa-solid fa-plus"></i> Add New Project</button>
+                            <button class="btn btn-primary" id="btn-add-project"><i class="fa-solid fa-plus"></i> Add
+                                New Project</button>
                         </div>
 
                         <!-- Drag and drop reorderable list -->
@@ -337,31 +365,42 @@
                         <div class="form-grid">
                             <div class="form-group full-width">
                                 <label class="form-label" for="contact-subtitle-input">Contact Section Subtitle</label>
-                                <input type="text" id="contact-subtitle-input" class="form-control" placeholder="Let's Discuss Collaborations">
+                                <input type="text" id="contact-subtitle-input" class="form-control"
+                                    placeholder="Let's Discuss Collaborations">
                             </div>
                             <div class="form-group full-width">
                                 <label class="form-label" for="contact-desc-input">Contact Section Description</label>
                                 <textarea id="contact-desc-input" class="form-control" rows="2"></textarea>
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="contact-email-input"><i class="fa-solid fa-envelope"></i> Email Address</label>
-                                <input type="email" id="contact-email-input" class="form-control" placeholder="lakshanj.24@cse.mrt.ac.lk">
+                                <label class="form-label" for="contact-email-input"><i class="fa-solid fa-envelope"></i>
+                                    Email Address</label>
+                                <input type="email" id="contact-email-input" class="form-control"
+                                    placeholder="lakshanj.24@cse.mrt.ac.lk">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="contact-phone-input"><i class="fa-solid fa-phone"></i> Phone Number</label>
-                                <input type="text" id="contact-phone-input" class="form-control" placeholder="+94 71 321 5390">
+                                <label class="form-label" for="contact-phone-input"><i class="fa-solid fa-phone"></i>
+                                    Phone Number</label>
+                                <input type="text" id="contact-phone-input" class="form-control"
+                                    placeholder="+94 71 321 5390">
                             </div>
                             <div class="form-group full-width">
-                                <label class="form-label" for="contact-loc-input"><i class="fa-solid fa-location-dot"></i> Physical Location</label>
-                                <input type="text" id="contact-loc-input" class="form-control" placeholder="No. 44/2, Ovilikanda, Matale, Sri Lanka">
+                                <label class="form-label" for="contact-loc-input"><i
+                                        class="fa-solid fa-location-dot"></i> Physical Location</label>
+                                <input type="text" id="contact-loc-input" class="form-control"
+                                    placeholder="No. 44/2, Ovilikanda, Matale, Sri Lanka">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="contact-github-input"><i class="fa-brands fa-github"></i> GitHub Profile URL</label>
-                                <input type="url" id="contact-github-input" class="form-control" placeholder="https://github.com/LakshanSj">
+                                <label class="form-label" for="contact-github-input"><i class="fa-brands fa-github"></i>
+                                    GitHub Profile URL</label>
+                                <input type="url" id="contact-github-input" class="form-control"
+                                    placeholder="https://github.com/LakshanSj">
                             </div>
                             <div class="form-group">
-                                <label class="form-label" for="contact-linkedin-input"><i class="fa-brands fa-linkedin"></i> LinkedIn Profile URL</label>
-                                <input type="url" id="contact-linkedin-input" class="form-control" placeholder="https://www.linkedin.com/in/...">
+                                <label class="form-label" for="contact-linkedin-input"><i
+                                        class="fa-brands fa-linkedin"></i> LinkedIn Profile URL</label>
+                                <input type="url" id="contact-linkedin-input" class="form-control"
+                                    placeholder="https://www.linkedin.com/in/...">
                             </div>
                         </div>
                     </div>
@@ -374,16 +413,22 @@
                             <h3><i class="fa-brands fa-github"></i> 1-Click GitHub Repository Direct Sync</h3>
                         </div>
                         <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-                            Directly commit and push your portfolio changes to your GitHub repository (<a href="https://github.com/LakshanSj/lakshansj.github.io" target="_blank" style="color: var(--primary-color);">lakshansj.github.io</a>) via GitHub REST API without touching the command line.
+                            Directly commit and push your portfolio changes to your GitHub repository (<a
+                                href="https://github.com/LakshanSj/lakshansj.github.io" target="_blank"
+                                style="color: var(--primary-color);">lakshansj.github.io</a>) via GitHub REST API
+                            without touching the command line.
                         </p>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label class="form-label" for="gh-token">GitHub Personal Access Token (classic with <code>repo</code> or fine-grained)</label>
-                                <input type="password" id="gh-token" class="form-control" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
+                                <label class="form-label" for="gh-token">GitHub Personal Access Token (classic with
+                                    <code>repo</code> or fine-grained)</label>
+                                <input type="password" id="gh-token" class="form-control"
+                                    placeholder="ghp_xxxxxxxxxxxxxxxxxxxx">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="gh-repo">Repository (owner/repo)</label>
-                                <input type="text" id="gh-repo" class="form-control" value="LakshanSj/lakshansj.github.io">
+                                <input type="text" id="gh-repo" class="form-control"
+                                    value="LakshanSj/lakshansj.github.io">
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="gh-branch">Target Branch</label>
@@ -391,7 +436,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="gh-commit-msg">Commit Message</label>
-                                <input type="text" id="gh-commit-msg" class="form-control" value="Update portfolio content via Portfolio Studio CMS">
+                                <input type="text" id="gh-commit-msg" class="form-control"
+                                    value="Update portfolio content via Portfolio Studio CMS">
                             </div>
                         </div>
                         <div style="margin-top: 1rem; display: flex; gap: 0.75rem; align-items: center;">
@@ -408,7 +454,8 @@
                             <h3><i class="fa-solid fa-file-code"></i> Download Updated data.js File</h3>
                         </div>
                         <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.25rem;">
-                            Alternatively, download the updated <code>data.js</code> file to overwrite in your local repository folder manually:
+                            Alternatively, download the updated <code>data.js</code> file to overwrite in your local
+                            repository folder manually:
                         </p>
                         <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
                             <button id="btn-download-datajs" class="btn btn-secondary">
@@ -430,7 +477,8 @@
                         <form id="form-change-pin" style="max-width: 400px;">
                             <div class="form-group">
                                 <label class="form-label" for="current-pin">Current PIN</label>
-                                <input type="password" id="current-pin" class="form-control" placeholder="••••" required>
+                                <input type="password" id="current-pin" class="form-control" placeholder="••••"
+                                    required>
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="new-pin">New PIN (4-8 digits)</label>
@@ -438,7 +486,8 @@
                             </div>
                             <div class="form-group">
                                 <label class="form-label" for="confirm-pin">Confirm New PIN</label>
-                                <input type="password" id="confirm-pin" class="form-control" placeholder="••••" required>
+                                <input type="password" id="confirm-pin" class="form-control" placeholder="••••"
+                                    required>
                             </div>
                             <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
                                 <i class="fa-solid fa-check"></i> Update Security PIN
@@ -456,15 +505,18 @@
     <div class="modal-overlay" id="modal-project">
         <div class="modal-box">
             <div class="modal-header">
-                <h3 id="modal-project-title"><i class="fa-solid fa-cube" style="color: var(--primary-color);"></i> Project Editor</h3>
-                <button class="modal-close-btn" onclick="closeModal('modal-project')"><i class="fa-solid fa-xmark"></i></button>
+                <h3 id="modal-project-title"><i class="fa-solid fa-cube" style="color: var(--primary-color);"></i>
+                    Project Editor</h3>
+                <button class="modal-close-btn" onclick="closeModal('modal-project')"><i
+                        class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="modal-body">
                 <input type="hidden" id="proj-edit-id">
                 <div class="form-grid">
                     <div class="form-group full-width">
                         <label class="form-label" for="proj-edit-title">Project Title *</label>
-                        <input type="text" id="proj-edit-title" class="form-control" placeholder="e.g. AI Trading Bot" required>
+                        <input type="text" id="proj-edit-title" class="form-control" placeholder="e.g. AI Trading Bot"
+                            required>
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="proj-edit-category">Filter Category *</label>
@@ -481,7 +533,8 @@
                     </div>
                     <div class="form-group full-width">
                         <label class="form-label" for="proj-edit-type">Sub-Heading / Type</label>
-                        <input type="text" id="proj-edit-type" class="form-control" placeholder="e.g. Machine Learning & Finance">
+                        <input type="text" id="proj-edit-type" class="form-control"
+                            placeholder="e.g. Machine Learning & Finance">
                     </div>
                     <div class="form-group full-width">
                         <label class="form-label">Project Visual (Custom Image / Screenshot or FontAwesome Icon)</label>
@@ -491,42 +544,52 @@
                             </div>
                             <div class="image-upload-actions">
                                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                                    <input type="text" id="proj-edit-img-url" class="form-control" placeholder="Image URL (assets/... or https://...)" style="flex: 1;">
+                                    <input type="text" id="proj-edit-img-url" class="form-control"
+                                        placeholder="Image URL (assets/... or https://...)" style="flex: 1;">
                                     <label class="btn btn-secondary" style="margin: 0; cursor: pointer;">
                                         <i class="fa-solid fa-file-image"></i> Upload Screenshot
-                                        <input type="file" id="proj-edit-img-file" accept="image/*" style="display: none;">
+                                        <input type="file" id="proj-edit-img-file" accept="image/*"
+                                            style="display: none;">
                                     </label>
                                 </div>
                                 <div style="display: flex; gap: 0.5rem; align-items: center;">
                                     <span style="font-size: 0.8rem; color: var(--text-muted);">or Icon Class:</span>
-                                    <input type="text" id="proj-edit-icon" class="form-control" placeholder="fa-solid fa-chart-line" style="width: 220px;">
+                                    <input type="text" id="proj-edit-icon" class="form-control"
+                                        placeholder="fa-solid fa-chart-line" style="width: 220px;">
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="form-group full-width">
                         <label class="form-label" for="proj-edit-desc">Project Description *</label>
-                        <textarea id="proj-edit-desc" class="form-control" rows="3" placeholder="Explain the project, features, and algorithms used..." required></textarea>
+                        <textarea id="proj-edit-desc" class="form-control" rows="3"
+                            placeholder="Explain the project, features, and algorithms used..." required></textarea>
                     </div>
                     <div class="form-group full-width">
-                        <label class="form-label">Tech Stack Tags <span class="form-label-hint">Type tag and press Enter</span></label>
+                        <label class="form-label">Tech Stack Tags <span class="form-label-hint">Type tag and press
+                                Enter</span></label>
                         <div class="tags-manager" id="proj-tags-manager">
-                            <input type="text" id="proj-tag-input" class="tag-input" placeholder="Add tech (e.g. React, FastAPI, VHDL)...">
+                            <input type="text" id="proj-tag-input" class="tag-input"
+                                placeholder="Add tech (e.g. React, FastAPI, VHDL)...">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="proj-edit-github"><i class="fa-brands fa-github"></i> GitHub Repo URL</label>
-                        <input type="url" id="proj-edit-github" class="form-control" placeholder="https://github.com/LakshanSj/...">
+                        <label class="form-label" for="proj-edit-github"><i class="fa-brands fa-github"></i> GitHub Repo
+                            URL</label>
+                        <input type="url" id="proj-edit-github" class="form-control"
+                            placeholder="https://github.com/LakshanSj/...">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="proj-edit-live"><i class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo URL</label>
+                        <label class="form-label" for="proj-edit-live"><i
+                                class="fa-solid fa-arrow-up-right-from-square"></i> Live Demo URL</label>
                         <input type="url" id="proj-edit-live" class="form-control" placeholder="https://...">
                     </div>
                 </div>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal('modal-project')">Cancel</button>
-                <button class="btn btn-primary" id="btn-save-project"><i class="fa-solid fa-check"></i> Save Project</button>
+                <button class="btn btn-primary" id="btn-save-project"><i class="fa-solid fa-check"></i> Save
+                    Project</button>
             </div>
         </div>
     </div>
