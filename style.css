@@ -1381,3 +1381,22 @@ body.light-theme .social-links a:hover {
         text-align: center;
     }
 }
+
+/* Project Card Custom Image Hover */
+.project-card .project-img-placeholder img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transition-speed) ease;
+}
+
+.project-card:hover .project-img-placeholder img {
+    transform: scale(1.06);
+}
+
+/* Admin Portal Link Styling */
+.admin-portal-link:hover {
+    color: var(--primary-color) !important;
+    border-color: var(--primary-color) !important;
+    background: var(--highlight-bg);
+}

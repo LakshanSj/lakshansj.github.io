@@ -63,20 +63,20 @@
                 <span class="terminal-dot red"></span>
                 <span class="terminal-dot yellow"></span>
                 <span class="terminal-dot green"></span>
-                <span class="terminal-text">std::cout &lt;&lt; "Hello World!";</span>
+                <span class="terminal-text" id="hero-terminal-text">std::cout &lt;&lt; "Hello World!";</span>
             </div>
-            <h1 class="hero-title">Lakshan Jayawardana</h1>
+            <h1 class="hero-title" id="hero-name">Lakshan Jayawardana</h1>
             <h2 class="hero-subtitle">I'm a <span id="typed-text"></span><span class="typed-cursor">|</span></h2>
-            <p class="hero-description">
+            <p class="hero-description" id="hero-description">
                 A motivated Computer Science & Engineering undergraduate at the University of Moratuwa. Eager to apply
                 technical skills in IoT architectures, hardware design (VHDL), and software development to solve
                 real-world engineering challenges.
             </p>
             <div class="hero-cta">
-                <a href="#projects" class="btn btn-primary">
+                <a href="#projects" class="btn btn-primary" id="hero-projects-btn">
                     <i class="fa-solid fa-code-branch"></i> View Projects
                 </a>
-                <a href="assets/CV_Lakshan_Jayawardana.pdf" class="btn btn-secondary" target="_blank"
+                <a href="assets/CV_Lakshan_Jayawardana.pdf" class="btn btn-secondary" id="hero-cv-btn" target="_blank"
                     download="CV_Lakshan_Jayawardana.pdf">
                     <i class="fa-solid fa-file-pdf"></i> Download CV
                 </a>
@@ -107,28 +107,30 @@
                     <div class="about-img-container" style="width: 160px; flex-shrink: 0; margin: 0 auto;">
                         <div class="profile-card"
                             style="width: 160px; height: 160px; border-radius: 50%; overflow: hidden; flex-shrink: 0; box-shadow: 0 0 0 3px var(--primary-color), 0 10px 30px -10px var(--shadow-color); background: var(--card-bg); display: block;">
-                            <img src="assets/image.jpg" alt="Lakshan Jayawardana" class="profile-img"
+                            <img src="assets/image.jpg" alt="Lakshan Jayawardana" class="profile-img" id="about-profile-img"
                                 style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: center 70%; display: block; transition: transform var(--transition-speed) ease;">
                         </div>
                     </div>
 
-                    <div class="about-info">
-                        <p class="paragraph-lead">
+                    <div class="about-info" id="about-info-container">
+                        <p class="paragraph-lead" id="about-lead">
                             Hello! I am a Computer Science & Engineering undergraduate at the University of Moratuwa
                             with a passion for designing connected hardware systems and building responsive software.
                         </p>
-                        <p>
-                            My academic journey is focused on developing robust and efficient solutions. I have
-                            experience designing custom digital systems (such as a VHDL 4-bit nanoprocessor) and
-                            implementing IoT architectures complete with real-time dashboards, environmental sensor
-                            networks, and solar energy integration.
-                        </p>
-                        <p>
-                            I enjoy team-based projects and cross-functional collaborations, bringing hands-on
-                            experience in planning, design coordination, and customer-facing operations. I am always
-                            excited to learn new tools and framework stacks to solve complex technical problems.
-                        </p>
-                        <div class="stats-grid">
+                        <div id="about-paragraphs-container">
+                            <p>
+                                My academic journey is focused on developing robust and efficient solutions. I have
+                                experience designing custom digital systems (such as a VHDL 4-bit nanoprocessor) and
+                                implementing IoT architectures complete with real-time dashboards, environmental sensor
+                                networks, and solar energy integration.
+                            </p>
+                            <p>
+                                I enjoy team-based projects and cross-functional collaborations, bringing hands-on
+                                experience in planning, design coordination, and customer-facing operations. I am always
+                                excited to learn new tools and framework stacks to solve complex technical problems.
+                            </p>
+                        </div>
+                        <div class="stats-grid" id="about-stats-container">
                             <div class="stat-card">
                                 <h3 class="stat-num">3.74</h3>
                                 <p class="stat-label">Current SGPA</p>
@@ -150,26 +152,28 @@
                                 <i class="fa-solid fa-graduation-cap card-icon"></i>
                                 <h3>Education</h3>
                             </div>
-                            <div class="education-item" style="margin-bottom: 1.5rem;">
-                                <h4 class="edu-degree">B.Sc. in Computer Science & Engineering</h4>
-                                <p class="edu-school">University of Moratuwa</p>
-                                <div
-                                    style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.25rem; flex-wrap: wrap; gap: 0.5rem;">
-                                    <span class="edu-date">2024 — Present (1st Year)</span>
-                                    <span
-                                        style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--secondary-color); background: var(--secondary-glow); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--card-border);">SGPA:
-                                        3.74</span>
+                            <div id="education-list-container">
+                                <div class="education-item" style="margin-bottom: 1.5rem;">
+                                    <h4 class="edu-degree">B.Sc. in Computer Science & Engineering</h4>
+                                    <p class="edu-school">University of Moratuwa</p>
+                                    <div
+                                        style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.25rem; flex-wrap: wrap; gap: 0.5rem;">
+                                        <span class="edu-date">2024 — Present (1st Year)</span>
+                                        <span
+                                            style="font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--secondary-color); background: var(--secondary-glow); padding: 2px 8px; border-radius: 4px; border: 1px solid var(--card-border);">SGPA:
+                                            3.74</span>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="education-item" style="margin-bottom: 1.5rem;">
-                                <h4 class="edu-degree">GCE Advanced Level (Physical Science)</h4>
-                                <p class="edu-school">Govt. Science College, Matale</p>
-                                <span class="edu-date">2019 — 2023</span>
-                            </div>
-                            <div class="education-item">
-                                <h4 class="edu-degree">Secondary & Primary Education</h4>
-                                <p class="edu-school">Ovilikanda Maha Vidyalaya, Matale</p>
-                                <span class="edu-date">2010 — 2018</span>
+                                <div class="education-item" style="margin-bottom: 1.5rem;">
+                                    <h4 class="edu-degree">GCE Advanced Level (Physical Science)</h4>
+                                    <p class="edu-school">Govt. Science College, Matale</p>
+                                    <span class="edu-date">2019 — 2023</span>
+                                </div>
+                                <div class="education-item">
+                                    <h4 class="edu-degree">Secondary & Primary Education</h4>
+                                    <p class="edu-school">Ovilikanda Maha Vidyalaya, Matale</p>
+                                    <span class="edu-date">2010 — 2018</span>
+                                </div>
                             </div>
                         </div>
 
@@ -178,7 +182,7 @@
                                 <i class="fa-solid fa-book card-icon"></i>
                                 <h3>Relevant Coursework</h3>
                             </div>
-                            <div class="coursework-tags">
+                            <div class="coursework-tags" id="coursework-tags-container">
                                 <span class="course-tag">Programming</span>
                                 <span class="course-tag">Data Structures</span>
                                 <span class="course-tag">Software Engineering</span>
@@ -203,7 +207,7 @@
                     <div class="section-line"></div>
                 </div>
 
-                <div class="experience-timeline">
+                <div class="experience-timeline" id="experience-timeline-container">
                     <!-- Item 1: Engineering Intern -->
                     <div class="timeline-item">
                         <div class="timeline-dot"></div>
@@ -263,7 +267,7 @@
                     <div class="section-line"></div>
                 </div>
 
-                <div class="skills-grid">
+                <div class="skills-grid" id="skills-grid-container">
                     <!-- Programming & Software -->
                     <div class="card glass-card skill-category-card">
                         <h3 class="skill-category-title"><i class="fa-solid fa-code"></i> Programming & Software</h3>
@@ -316,7 +320,7 @@
                 </div>
 
                 <!-- Projects Filter -->
-                <div class="project-filters">
+                <div class="project-filters" id="project-filters-container">
                     <button class="filter-btn active" data-filter="all">All</button>
                     <button class="filter-btn" data-filter="ml">Machine Learning</button>
                     <button class="filter-btn" data-filter="web">Full Stack</button>
@@ -325,7 +329,7 @@
                 </div>
 
                 <!-- Projects Grid -->
-                <div class="projects-grid">
+                <div class="projects-grid" id="projects-grid-container">
                     <!-- Project 1: Trading Prediction System -->
                     <div class="project-card glass-card" data-category="ml">
                         <div class="project-img-placeholder">
@@ -466,18 +470,18 @@
 
                 <div class="contact-grid">
                     <div class="contact-info">
-                        <h3 class="contact-subtitle">Let's Discuss Collaborations</h3>
-                        <p>
+                        <h3 class="contact-subtitle" id="contact-subtitle">Let's Discuss Collaborations</h3>
+                        <p id="contact-desc">
                             I'm open to discussing software engineering internships, research collaborations,
                             open-source projects, or systems architecture. Drop me a message and I'll get back to you as
                             soon as possible.
                         </p>
-                        <div class="contact-details">
+                        <div class="contact-details" id="contact-details-container">
                             <div class="contact-detail-item">
                                 <i class="fa-solid fa-envelope detail-icon"></i>
                                 <div>
                                     <span class="detail-label">Email Me</span>
-                                    <a href="mailto:lakshanj.24@cse.mrt.ac.lk"
+                                    <a href="mailto:lakshanj.24@cse.mrt.ac.lk" id="contact-email"
                                         class="detail-value">lakshanj.24@cse.mrt.ac.lk</a>
                                 </div>
                             </div>
@@ -485,21 +489,21 @@
                                 <i class="fa-solid fa-phone detail-icon"></i>
                                 <div>
                                     <span class="detail-label">Call Me</span>
-                                    <a href="tel:+94713215390" class="detail-value">+94 71 321 5390</a>
+                                    <a href="tel:+94713215390" id="contact-phone" class="detail-value">+94 71 321 5390</a>
                                 </div>
                             </div>
                             <div class="contact-detail-item">
                                 <i class="fa-solid fa-location-dot detail-icon"></i>
                                 <div>
                                     <span class="detail-label">Location</span>
-                                    <span class="detail-value">No. 44/2, Ovilikanda, Matale, Sri Lanka</span>
+                                    <span class="detail-value" id="contact-location">No. 44/2, Ovilikanda, Matale, Sri Lanka</span>
                                 </div>
                             </div>
                         </div>
-                        <div class="social-links">
-                            <a href="https://github.com/LakshanSj" target="_blank" rel="noopener noreferrer"
+                        <div class="social-links" id="contact-socials-container">
+                            <a href="https://github.com/LakshanSj" id="contact-github" target="_blank" rel="noopener noreferrer"
                                 aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
-                            <a href="https://www.linkedin.com/in/lakshan-jayawardana/" target="_blank"
+                            <a href="https://www.linkedin.com/in/lakshan-jayawardana/" id="contact-linkedin" target="_blank"
                                 rel="noopener noreferrer" aria-label="LinkedIn"><i
                                     class="fa-brands fa-linkedin-in"></i></a>
                         </div>
@@ -542,11 +546,17 @@
     <footer class="footer">
         <div class="container footer-container">
             <p class="copyright">&copy; 2026 Lakshan Jayawardana. Built with HTML, CSS, and Vanilla JavaScript.</p>
-            <p class="footer-tag">system.status = "Operational";</p>
+            <div class="footer-actions" style="display: flex; align-items: center; gap: 1rem;">
+                <p class="footer-tag">system.status = "Operational";</p>
+                <a href="admin.html" class="admin-portal-link" title="Admin Panel (Ctrl + Shift + A)" style="color: var(--text-muted); font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; padding: 3px 8px; border-radius: 4px; border: 1px solid var(--card-border); transition: all var(--transition-speed) ease;">
+                    <i class="fa-solid fa-sliders"></i> Admin
+                </a>
+            </div>
         </div>
     </footer>
 
-    <!-- Main JavaScript -->
+    <!-- Portfolio Data & Main JavaScript -->
+    <script src="data.js"></script>
     <script src="script.js"></script>
 </body>
 
