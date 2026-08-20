@@ -1,6 +1,6 @@
 /**
  * Portfolio Data Source of Truth
- * Generated via Portfolio Studio CMS on 2026-08-20T05:04:43.968Z
+ * Generated via Portfolio Studio CMS on 2026-08-20T05:27:57.164Z
  */
 
 const defaultPortfolioData = {
@@ -161,22 +161,6 @@ const defaultPortfolioData = {
             "label": "Hardware & HDL"
         }
     ],
-<<<<<<< HEAD
-    contact: {
-        subtitle: "Let's Discuss Collaborations",
-        description: "I'm open to discussing software engineering internships, research collaborations, open-source projects, or systems architecture. Drop me a message and I'll get back to you as soon as possible.",
-        email: "lakshanj.24@cse.mrt.ac.lk",
-        phone: "+94 71 321 5390",
-        location: "No. 44/2, Ovilikanda, Matale, Sri Lanka",
-        socials: {
-            github: "https://github.com/LakshanSj",
-            linkedin: "https://www.linkedin.com/in/lakshan-jayawardana/"
-        },
-        emailService: {
-            provider: "web3forms",
-            accessKey: "",
-            recipientEmail: "lakshanj.24@cse.mrt.ac.lk"
-=======
     "projects": [
         {
             "id": "proj-1",
@@ -265,7 +249,6 @@ const defaultPortfolioData = {
         "socials": {
             "github": "https://github.com/LakshanSj",
             "linkedin": "https://www.linkedin.com/in/lakshan-jayawardana/"
->>>>>>> 1096f01e86d00ac6f6b21ede15e0e89348ddcba8
         }
     },
     "meta": {
@@ -285,12 +268,7 @@ function getPortfolioData() {
                 ...parsed,
                 hero: { ...defaultPortfolioData.hero, ...(parsed.hero || {}) },
                 about: { ...defaultPortfolioData.about, ...(parsed.about || {}) },
-                contact: {
-                    ...defaultPortfolioData.contact,
-                    ...(parsed.contact || {}),
-                    socials: { ...(defaultPortfolioData.contact.socials || {}), ...(parsed.contact?.socials || {}) },
-                    emailService: { ...(defaultPortfolioData.contact.emailService || {}), ...(parsed.contact?.emailService || {}) }
-                },
+                contact: { ...defaultPortfolioData.contact, ...(parsed.contact || {}) },
                 meta: { ...defaultPortfolioData.meta, ...(parsed.meta || {}) }
             };
         }
