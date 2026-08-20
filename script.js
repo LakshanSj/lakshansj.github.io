@@ -278,14 +278,14 @@ document.addEventListener('DOMContentLoaded', () => {
     setupProjectFiltersAndTilt();
 
     // -------------------------------------------------------------------------
-    // 7. Contact Form Terminal-Inspired Validation & Messaging
+    // 7. Contact Form Terminal-Inspired Validation & Direct Inbox Delivery
     // -------------------------------------------------------------------------
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
     const submitBtn = document.getElementById('submit-btn');
     
     if (contactForm && submitBtn && formStatus) {
-        contactForm.addEventListener('submit', (e) => {
+        contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const nameVal = document.getElementById('name').value.trim();
@@ -299,38 +299,106 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
             
+            const portfolioData = (typeof getPortfolioData === 'function') ? getPortfolioData() : {};
+            const contactConfig = portfolioData.contact || {};
+            const emailService = contactConfig.emailService || {};
+            const recipientEmail = emailService.recipientEmail || contactConfig.email || 'lakshanj.24@cse.mrt.ac.lk';
+            const accessKey = (emailService.accessKey || '').trim();
+            const provider = emailService.provider || 'web3forms';
+
             // Terminal-style compile animations
             submitBtn.disabled = true;
             formStatus.className = 'form-status';
             
-            let steps = [
-                'guest@lakshan.dev:~$ compile -f contact_form.cpp',
-                'Compiling: [||||||||||] 100% SUCCESS',
-                'Linking executable...',
-                'guest@lakshan.dev:~$ ./send_message --to="lakshan"',
-                'Sending request packets...'
-            ];
-            
-            let stepIdx = 0;
-            
-            function printSteps() {
-                if (stepIdx < steps.length) {
-                    formStatus.textContent = steps[stepIdx];
-                    stepIdx++;
-                    setTimeout(printSteps, 600);
+            const printLine = (text) => {
+                formStatus.textContent = text;
+            };
+
+            const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
+            printLine('guest@lakshan.dev:~$ compile -f contact_form.cpp');
+            await sleep(400);
+            printLine('Compiling: [||||||||||] 100% SUCCESS');
+            await sleep(400);
+            printLine(`guest@lakshan.dev:~$ ./send_message --to="${recipientEmail}"`);
+            await sleep(400);
+            printLine('Encrypting & dispatching packets...');
+
+            try {
+                let isSuccess = false;
+                let errorMsg = '';
+
+                if (provider === 'web3forms' && accessKey) {
+                    const response = await fetch('https://api.web3forms.com/submit', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            access_key: accessKey,
+                            name: nameVal,
+                            email: emailVal,
+                            subject: subjectVal,
+                            message: messageVal,
+                            from_name: `${nameVal} (via Portfolio Contact)`,
+                            replyto: emailVal
+                        })
+                    });
+                    const resData = await response.json();
+                    if (response.ok && resData.success) {
+                        isSuccess = true;
+                    } else {
+                        errorMsg = resData.message || 'Web3Forms dispatch error';
+                    }
+                } else if (provider === 'formspree' && accessKey) {
+                    const endpoint = accessKey.startsWith('http') ? accessKey : `https://formspree.io/f/${accessKey}`;
+                    const response = await fetch(endpoint, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            name: nameVal,
+                            email: emailVal,
+                            subject: subjectVal,
+                            message: messageVal,
+                            _replyto: emailVal
+                        })
+                    });
+                    if (response.ok) {
+                        isSuccess = true;
+                    } else {
+                        const resData = await response.json().catch(() => ({}));
+                        errorMsg = resData.error || 'Formspree transmission error';
+                    }
                 } else {
+                    // Fallback when no Access Key is configured:
+                    // Open default mail client directly with pre-composed email
+                    const mailtoUrl = `mailto:${encodeURIComponent(recipientEmail)}?subject=${encodeURIComponent(subjectVal)}&body=${encodeURIComponent(`Hi Lakshan,\n\n${messageVal}\n\nFrom: ${nameVal}\nEmail: ${emailVal}`)}`;
+                    window.location.href = mailtoUrl;
+                    isSuccess = true;
+                }
+
+                if (isSuccess) {
                     formStatus.className = 'form-status success';
-                    formStatus.innerHTML = '<i class="fa-solid fa-circle-check"></i> Connection established. Message delivered successfully!';
+                    formStatus.innerHTML = `<i class="fa-solid fa-circle-check"></i> Connection established. Message delivered directly to ${recipientEmail}!`;
                     contactForm.reset();
-                    submitBtn.disabled = false;
-                    
                     document.querySelectorAll('.form-group input, .form-group textarea').forEach(el => {
                         el.dispatchEvent(new Event('change'));
                     });
+                } else {
+                    formStatus.className = 'form-status error';
+                    formStatus.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> [FAILED] ${errorMsg}. Please email <a href="mailto:${recipientEmail}" style="color: var(--primary-color);">${recipientEmail}</a> directly.`;
                 }
+            } catch (err) {
+                console.error('Contact submission error:', err);
+                formStatus.className = 'form-status error';
+                formStatus.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Network error. Please email <a href="mailto:${recipientEmail}" style="color: var(--primary-color);">${recipientEmail}</a> directly.`;
+            } finally {
+                submitBtn.disabled = false;
             }
-            
-            printSteps();
         });
     }
 

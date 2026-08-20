@@ -179,6 +179,11 @@ const defaultPortfolioData = {
         socials: {
             github: "https://github.com/LakshanSj",
             linkedin: "https://www.linkedin.com/in/lakshan-jayawardana/"
+        },
+        emailService: {
+            provider: "web3forms",
+            accessKey: "",
+            recipientEmail: "lakshanj.24@cse.mrt.ac.lk"
         }
     },
     meta: {
@@ -199,7 +204,12 @@ function getPortfolioData() {
                 ...parsed,
                 hero: { ...defaultPortfolioData.hero, ...(parsed.hero || {}) },
                 about: { ...defaultPortfolioData.about, ...(parsed.about || {}) },
-                contact: { ...defaultPortfolioData.contact, ...(parsed.contact || {}) },
+                contact: {
+                    ...defaultPortfolioData.contact,
+                    ...(parsed.contact || {}),
+                    socials: { ...(defaultPortfolioData.contact.socials || {}), ...(parsed.contact?.socials || {}) },
+                    emailService: { ...(defaultPortfolioData.contact.emailService || {}), ...(parsed.contact?.emailService || {}) }
+                },
                 meta: { ...defaultPortfolioData.meta, ...(parsed.meta || {}) }
             };
         }

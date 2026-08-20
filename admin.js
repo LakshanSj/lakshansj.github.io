@@ -399,6 +399,16 @@ function populateAllSections() {
             setVal('contact-github-input', c.socials.github || '');
             setVal('contact-linkedin-input', c.socials.linkedin || '');
         }
+
+        if (c.emailService) {
+            setVal('contact-email-provider', c.emailService.provider || 'web3forms');
+            setVal('contact-recipient-email', c.emailService.recipientEmail || c.email || '');
+            setVal('contact-access-key', c.emailService.accessKey || '');
+        } else {
+            setVal('contact-email-provider', 'web3forms');
+            setVal('contact-recipient-email', c.email || '');
+            setVal('contact-access-key', '');
+        }
     }
 
     // GitHub Settings
@@ -1128,6 +1138,74 @@ function initGlobalActionButtons() {
     document.getElementById('btn-github-sync')?.addEventListener('click', () => {
         syncToGitHub();
     });
+
+    // Test Email Dispatch
+    document.getElementById('btn-test-email')?.addEventListener('click', async () => {
+        const provider = getVal('contact-email-provider');
+        const accessKey = getVal('contact-access-key').trim();
+        const recipient = getVal('contact-recipient-email').trim() || getVal('contact-email-input').trim() || 'lakshanj.24@cse.mrt.ac.lk';
+        const statusEl = document.getElementById('test-email-status');
+
+        if (!accessKey && provider !== 'mailto') {
+            showToast('Please enter an Access Key / Form ID to test email delivery', 'error');
+            if (statusEl) statusEl.textContent = 'Missing Access Key';
+            return;
+        }
+
+        if (statusEl) statusEl.textContent = 'Sending test dispatch...';
+        showToast('Sending test message...', 'info');
+
+        try {
+            if (provider === 'web3forms') {
+                const res = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        access_key: accessKey,
+                        name: 'Portfolio Studio Test',
+                        email: recipient,
+                        subject: 'Portfolio Studio - Email Delivery Test',
+                        message: 'Congratulations! Your portfolio contact form is successfully connected to your inbox.',
+                        from_name: 'Studio Test Dispatch'
+                    })
+                });
+                const data = await res.json();
+                if (res.ok && data.success) {
+                    showToast('Test email sent successfully! Check your inbox.', 'success');
+                    if (statusEl) statusEl.textContent = 'Delivered to inbox!';
+                } else {
+                    showToast(`Failed: ${data.message || 'Check access key'}`, 'error');
+                    if (statusEl) statusEl.textContent = data.message || 'Failed';
+                }
+            } else if (provider === 'formspree') {
+                const endpoint = accessKey.startsWith('http') ? accessKey : `https://formspree.io/f/${accessKey}`;
+                const res = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+                    body: JSON.stringify({
+                        name: 'Portfolio Studio Test',
+                        email: recipient,
+                        subject: 'Portfolio Studio - Email Delivery Test',
+                        message: 'Congratulations! Your portfolio contact form is successfully connected to your inbox.'
+                    })
+                });
+                if (res.ok) {
+                    showToast('Test email sent successfully via Formspree! Check your inbox.', 'success');
+                    if (statusEl) statusEl.textContent = 'Delivered to inbox!';
+                } else {
+                    showToast('Formspree dispatch failed. Verify Form ID.', 'error');
+                    if (statusEl) statusEl.textContent = 'Dispatch failed';
+                }
+            } else {
+                showToast('Provider set to mailto (default mail app).', 'info');
+                if (statusEl) statusEl.textContent = 'Mailto fallback active';
+            }
+        } catch (err) {
+            console.error('Test email error:', err);
+            showToast('Network error while testing email.', 'error');
+            if (statusEl) statusEl.textContent = 'Network error';
+        }
+    });
 }
 
 function saveCurrentFormValuesToState() {
@@ -1159,6 +1237,12 @@ function saveCurrentFormValuesToState() {
     currentData.contact.socials = currentData.contact.socials || {};
     currentData.contact.socials.github = getVal('contact-github-input');
     currentData.contact.socials.linkedin = getVal('contact-linkedin-input');
+
+    currentData.contact.emailService = {
+        provider: getVal('contact-email-provider') || 'web3forms',
+        accessKey: getVal('contact-access-key').trim(),
+        recipientEmail: getVal('contact-recipient-email').trim() || getVal('contact-email-input').trim()
+    };
 
     // Meta
     currentData.meta = currentData.meta || {};
