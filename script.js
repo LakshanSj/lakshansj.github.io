@@ -283,21 +283,106 @@ document.addEventListener('DOMContentLoaded', () => {
     const contactForm = document.getElementById('contact-form');
     const formStatus = document.getElementById('form-status');
     const submitBtn = document.getElementById('submit-btn');
-    
+
+    // Helper to validate and toggle field error states
+    const fieldInputs = {
+        name: document.getElementById('name'),
+        email: document.getElementById('email'),
+        subject: document.getElementById('subject'),
+        message: document.getElementById('message')
+    };
+
+    const fieldErrors = {
+        name: document.getElementById('name-error'),
+        email: document.getElementById('email-error'),
+        subject: document.getElementById('subject-error'),
+        message: document.getElementById('message-error')
+    };
+
+    function validateField(fieldKey) {
+        const input = fieldInputs[fieldKey];
+        const errorEl = fieldErrors[fieldKey];
+        if (!input) return true;
+
+        const val = input.value.trim();
+        let errorMsg = '';
+
+        if (fieldKey === 'name') {
+            if (!val) errorMsg = 'Your name is required.';
+            else if (val.length < 2) errorMsg = 'Name must be at least 2 characters.';
+        } else if (fieldKey === 'email') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!val) errorMsg = 'Your email address is required.';
+            else if (!emailRegex.test(val)) errorMsg = 'Please enter a valid email address.';
+        } else if (fieldKey === 'subject') {
+            if (!val) errorMsg = 'A message subject is required.';
+            else if (val.length < 2) errorMsg = 'Subject must be at least 2 characters.';
+        } else if (fieldKey === 'message') {
+            if (!val) errorMsg = 'Message body cannot be empty.';
+            else if (val.length < 5) errorMsg = 'Message must be at least 5 characters.';
+        }
+
+        if (errorMsg) {
+            input.classList.add('field-invalid');
+            if (errorEl) {
+                errorEl.textContent = errorMsg;
+                errorEl.classList.add('active');
+            }
+            return false;
+        } else {
+            input.classList.remove('field-invalid');
+            if (errorEl) {
+                errorEl.textContent = '';
+                errorEl.classList.remove('active');
+            }
+            return true;
+        }
+    }
+
+    // Attach real-time input listeners to clear errors on typing
+    Object.keys(fieldInputs).forEach(key => {
+        const input = fieldInputs[key];
+        if (input) {
+            input.addEventListener('input', () => {
+                if (input.classList.contains('field-invalid')) {
+                    validateField(key);
+                }
+            });
+            input.addEventListener('blur', () => {
+                if (input.value.trim().length > 0) {
+                    validateField(key);
+                }
+            });
+        }
+    });
+
     if (contactForm && submitBtn && formStatus) {
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
-            const nameVal = document.getElementById('name').value.trim();
-            const emailVal = document.getElementById('email').value.trim();
-            const subjectVal = document.getElementById('subject').value.trim();
-            const messageVal = document.getElementById('message').value.trim();
-            
-            if (!nameVal || !emailVal || !subjectVal || !messageVal) {
+            // Validate all 4 required fields
+            let firstInvalidField = null;
+            let hasErrors = false;
+
+            Object.keys(fieldInputs).forEach(key => {
+                const isValid = validateField(key);
+                if (!isValid) {
+                    hasErrors = true;
+                    if (!firstInvalidField) firstInvalidField = fieldInputs[key];
+                }
+            });
+
+            if (hasErrors) {
+                if (firstInvalidField) firstInvalidField.focus();
                 formStatus.className = 'form-status error';
-                formStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> Error: Missing required fields.';
+                formStatus.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> [ERROR] Compilation failed: Please complete all required fields (*).';
                 return;
             }
+
+            const nameVal = fieldInputs.name.value.trim();
+            const emailVal = fieldInputs.email.value.trim();
+            const subjectVal = fieldInputs.subject.value.trim();
+            const messageVal = fieldInputs.message.value.trim();
             
             const portfolioData = (typeof getPortfolioData === 'function') ? getPortfolioData() : {};
             const contactConfig = portfolioData.contact || {};

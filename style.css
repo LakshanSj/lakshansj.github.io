@@ -980,6 +980,39 @@ body.light-theme .social-links a:hover {
     box-shadow: 0 0 0 3px var(--primary-glow);
 }
 
+.required-star {
+    color: #ef4444;
+    font-weight: bold;
+    margin-left: 2px;
+}
+
+.form-group input.field-invalid,
+.form-group textarea.field-invalid {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25) !important;
+    animation: inputShake 0.4s ease-in-out;
+}
+
+.field-error-msg {
+    display: none;
+    color: #f87171;
+    font-size: 0.78rem;
+    font-family: 'JetBrains Mono', monospace;
+    margin-top: 0.4rem;
+    padding-left: 0.25rem;
+    text-align: left;
+}
+
+.field-error-msg.active {
+    display: block;
+}
+
+@keyframes inputShake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-4px); }
+    40%, 80% { transform: translateX(4px); }
+}
+
 .btn-submit {
     justify-content: center;
     padding: 15px 30px;

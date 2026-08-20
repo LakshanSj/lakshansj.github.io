@@ -511,24 +511,28 @@
 
                     <!-- Contact Form -->
                     <div class="card glass-card contact-card">
-                        <form id="contact-form" class="contact-form">
+                        <form id="contact-form" class="contact-form" novalidate>
                             <div class="form-row">
                                 <div class="form-group">
                                     <input type="text" id="name" name="name" required placeholder=" ">
-                                    <label for="name">Your Name</label>
+                                    <label for="name">Your Name <span class="required-star">*</span></label>
+                                    <span class="field-error-msg" id="name-error"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="email" id="email" name="email" required placeholder=" ">
-                                    <label for="email">Your Email</label>
+                                    <label for="email">Your Email <span class="required-star">*</span></label>
+                                    <span class="field-error-msg" id="email-error"></span>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <input type="text" id="subject" name="subject" required placeholder=" ">
-                                <label for="subject">Subject</label>
+                                <label for="subject">Subject <span class="required-star">*</span></label>
+                                <span class="field-error-msg" id="subject-error"></span>
                             </div>
                             <div class="form-group">
                                 <textarea id="message" name="message" rows="5" required placeholder=" "></textarea>
-                                <label for="message">Message Body</label>
+                                <label for="message">Message Body <span class="required-star">*</span></label>
+                                <span class="field-error-msg" id="message-error"></span>
                             </div>
                             <button type="submit" id="submit-btn" class="btn btn-primary btn-submit">
                                 <span>compile &amp;&amp; send</span>
