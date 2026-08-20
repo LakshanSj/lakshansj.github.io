@@ -17,14 +17,221 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // =============================================================================
-// 1. Authentication & Security
+// 1. Cryptographic Security & Authentication Engine
 // =============================================================================
+const AUTH_STORAGE_KEY = 'studio_admin_auth';
+const LEGACY_STORAGE_KEY = 'studio_admin_pin';
+const LOCKOUT_STORAGE_KEY = 'studio_admin_lockout';
+const ATTEMPTS_STORAGE_KEY = 'studio_admin_failed_attempts';
+const DEFAULT_PIN = '1234';
+const PBKDF2_ITERATIONS = 100000;
+const MAX_FAILED_ATTEMPTS = 5;
+const LOCKOUT_DURATION_MS = 30 * 1000; // 30 seconds
+let lockoutTimer = null;
+
+/**
+ * Generates a cryptographically random 16-byte salt (hex string)
+ */
+function generateSaltHex(length = 16) {
+    const bytes = new Uint8Array(length);
+    window.crypto.getRandomValues(bytes);
+    return Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Derives a PBKDF2-HMAC-SHA256 key hash from a plaintext PIN and salt
+ */
+async function hashPinWithSalt(pin, saltHex, iterations = PBKDF2_ITERATIONS) {
+    const enc = new TextEncoder();
+    const pinBuffer = enc.encode(pin);
+    const saltMatches = saltHex.match(/.{1,2}/g) || [];
+    const saltBuffer = new Uint8Array(saltMatches.map(byte => parseInt(byte, 16)));
+
+    const keyMaterial = await window.crypto.subtle.importKey(
+        'raw',
+        pinBuffer,
+        { name: 'PBKDF2' },
+        false,
+        ['deriveBits']
+    );
+
+    const derivedBits = await window.crypto.subtle.deriveBits(
+        {
+            name: 'PBKDF2',
+            salt: saltBuffer,
+            iterations: iterations,
+            hash: 'SHA-256'
+        },
+        keyMaterial,
+        256
+    );
+
+    const hashArray = Array.from(new Uint8Array(derivedBits));
+    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+}
+
+/**
+ * Stores PIN in localStorage using salted PBKDF2 hash (cleans up legacy plaintext)
+ */
+async function storeSecurePin(pin) {
+    const salt = generateSaltHex(16);
+    const hash = await hashPinWithSalt(pin, salt, PBKDF2_ITERATIONS);
+    const authData = {
+        salt,
+        hash,
+        iterations: PBKDF2_ITERATIONS,
+        updatedAt: new Date().toISOString()
+    };
+    localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(authData));
+    localStorage.removeItem(LEGACY_STORAGE_KEY);
+    return authData;
+}
+
+/**
+ * Retrieves the stored cryptographic auth record, auto-migrating legacy PIN if needed
+ */
+async function getStoredAuthData() {
+    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
+    if (raw) {
+        try {
+            const parsed = JSON.parse(raw);
+            if (parsed && parsed.hash && parsed.salt) {
+                return parsed;
+            }
+        } catch (e) {
+            console.error('Error parsing secure auth data:', e);
+        }
+    }
+
+    // Auto-migrate from legacy plaintext key or initialize default '1234'
+    const legacyPin = localStorage.getItem(LEGACY_STORAGE_KEY) || DEFAULT_PIN;
+    return await storeSecurePin(legacyPin);
+}
+
+/**
+ * Verifies if entered PIN matches the stored salted PBKDF2 hash
+ */
+async function verifyPin(enteredPin) {
+    const authData = await getStoredAuthData();
+    if (!authData || !authData.hash || !authData.salt) return false;
+    const computedHash = await hashPinWithSalt(enteredPin, authData.salt, authData.iterations || PBKDF2_ITERATIONS);
+    return computedHash === authData.hash;
+}
+
+/**
+ * Checks and updates brute-force lockout status in UI
+ */
+function checkLockoutStatus() {
+    const lockoutUntil = parseInt(localStorage.getItem(LOCKOUT_STORAGE_KEY) || '0', 10);
+    const now = Date.now();
+    const noticeEl = document.getElementById('auth-lockout-notice');
+    const msgEl = document.getElementById('auth-lockout-msg');
+    const submitBtn = document.getElementById('auth-submit-btn');
+    const pinInput = document.getElementById('admin-pin');
+
+    if (lockoutUntil > now) {
+        const remainingSec = Math.ceil((lockoutUntil - now) / 1000);
+        if (noticeEl && msgEl) {
+            noticeEl.style.display = 'flex';
+            msgEl.textContent = `Too many failed attempts. Locked for ${remainingSec}s.`;
+        }
+        if (submitBtn) submitBtn.disabled = true;
+        if (pinInput) pinInput.disabled = true;
+
+        if (lockoutTimer) clearInterval(lockoutTimer);
+        lockoutTimer = setInterval(() => {
+            const currentNow = Date.now();
+            const left = Math.ceil((lockoutUntil - currentNow) / 1000);
+            if (left <= 0) {
+                clearInterval(lockoutTimer);
+                localStorage.removeItem(LOCKOUT_STORAGE_KEY);
+                localStorage.removeItem(ATTEMPTS_STORAGE_KEY);
+                if (noticeEl) noticeEl.style.display = 'none';
+                if (submitBtn) submitBtn.disabled = false;
+                if (pinInput) {
+                    pinInput.disabled = false;
+                    pinInput.focus();
+                }
+            } else {
+                if (msgEl) msgEl.textContent = `Too many failed attempts. Locked for ${left}s.`;
+            }
+        }, 1000);
+        return true;
+    } else {
+        if (noticeEl) noticeEl.style.display = 'none';
+        if (submitBtn) submitBtn.disabled = false;
+        if (pinInput) pinInput.disabled = false;
+        return false;
+    }
+}
+
+/**
+ * Records an invalid PIN attempt and triggers lockout if threshold reached
+ */
+function recordFailedAttempt() {
+    let attempts = parseInt(localStorage.getItem(ATTEMPTS_STORAGE_KEY) || '0', 10) + 1;
+    localStorage.setItem(ATTEMPTS_STORAGE_KEY, attempts.toString());
+
+    if (attempts >= MAX_FAILED_ATTEMPTS) {
+        const lockoutUntil = Date.now() + LOCKOUT_DURATION_MS;
+        localStorage.setItem(LOCKOUT_STORAGE_KEY, lockoutUntil.toString());
+        checkLockoutStatus();
+        showToast(`Too many failed attempts. Locked for ${LOCKOUT_DURATION_MS / 1000}s`, 'error');
+    } else {
+        const remaining = MAX_FAILED_ATTEMPTS - attempts;
+        showToast(`Incorrect PIN. ${remaining} attempt${remaining === 1 ? '' : 's'} remaining.`, 'error');
+    }
+}
+
+/**
+ * Clears failed attempts counter upon successful authentication
+ */
+function clearFailedAttempts() {
+    localStorage.removeItem(ATTEMPTS_STORAGE_KEY);
+    localStorage.removeItem(LOCKOUT_STORAGE_KEY);
+    if (lockoutTimer) clearInterval(lockoutTimer);
+}
+
+/**
+ * Initializes show/hide password visibility toggles across forms
+ */
+function initPinVisibilityToggles() {
+    document.querySelectorAll('.pin-toggle-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const targetId = btn.getAttribute('data-target');
+            const input = document.getElementById(targetId);
+            if (!input) return;
+            const icon = btn.querySelector('i');
+            if (input.type === 'password') {
+                input.type = 'text';
+                if (icon) {
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                }
+            } else {
+                input.type = 'password';
+                if (icon) {
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            }
+        });
+    });
+}
+
 function initAuth() {
     const authScreen = document.getElementById('auth-screen');
     const adminApp = document.getElementById('admin-app');
     const authForm = document.getElementById('auth-form');
     const pinInput = document.getElementById('admin-pin');
     const btnLock = document.getElementById('btn-lock');
+
+    initPinVisibilityToggles();
+    checkLockoutStatus();
+
+    // Trigger proactive migration / initialization in background
+    getStoredAuthData().catch(err => console.error('Auth initialization error:', err));
 
     const isAuthenticated = sessionStorage.getItem('studio_auth') === 'true';
 
@@ -36,29 +243,45 @@ function initAuth() {
         adminApp.style.display = 'none';
     }
 
-    authForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const enteredPin = pinInput.value.trim();
-        const storedPin = localStorage.getItem('studio_admin_pin') || '1234';
+    if (authForm) {
+        authForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            if (checkLockoutStatus()) return;
 
-        if (enteredPin === storedPin) {
-            sessionStorage.setItem('studio_auth', 'true');
-            authScreen.style.display = 'none';
-            adminApp.style.display = 'flex';
-            showToast('Welcome back, Lakshan! Studio unlocked.', 'success');
-        } else {
-            showToast('Incorrect PIN. Default is 1234', 'error');
-            pinInput.value = '';
-            pinInput.focus();
-        }
-    });
+            const enteredPin = pinInput.value.trim();
+            if (!enteredPin) return;
+
+            const isValid = await verifyPin(enteredPin);
+
+            if (isValid) {
+                clearFailedAttempts();
+                sessionStorage.setItem('studio_auth', 'true');
+                authScreen.style.display = 'none';
+                adminApp.style.display = 'flex';
+                pinInput.value = '';
+                showToast('Welcome back, Lakshan! Studio unlocked.', 'success');
+            } else {
+                recordFailedAttempt();
+                pinInput.value = '';
+                pinInput.focus();
+            }
+        });
+    }
 
     if (btnLock) {
         btnLock.addEventListener('click', () => {
             sessionStorage.removeItem('studio_auth');
             adminApp.style.display = 'none';
             authScreen.style.display = 'flex';
-            pinInput.value = '';
+            if (pinInput) {
+                pinInput.value = '';
+                pinInput.type = 'password';
+            }
+            document.querySelectorAll('.pin-toggle-btn i').forEach(icon => {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            });
+            checkLockoutStatus();
             showToast('Session locked.', 'info');
         });
     }
@@ -66,29 +289,45 @@ function initAuth() {
     // Change PIN Form
     const changePinForm = document.getElementById('form-change-pin');
     if (changePinForm) {
-        changePinForm.addEventListener('submit', (e) => {
+        changePinForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const curr = document.getElementById('current-pin').value.trim();
-            const newP = document.getElementById('new-pin').value.trim();
-            const confP = document.getElementById('confirm-pin').value.trim();
-            const activePin = localStorage.getItem('studio_admin_pin') || '1234';
+            const currInput = document.getElementById('current-pin');
+            const newPinInput = document.getElementById('new-pin');
+            const confPinInput = document.getElementById('confirm-pin');
 
-            if (curr !== activePin) {
+            const curr = currInput.value.trim();
+            const newP = newPinInput.value.trim();
+            const confP = confPinInput.value.trim();
+
+            const isCurrentValid = await verifyPin(curr);
+            if (!isCurrentValid) {
                 showToast('Current PIN is incorrect', 'error');
+                currInput.focus();
                 return;
             }
-            if (newP.length < 4) {
-                showToast('New PIN must be at least 4 digits', 'error');
+            if (newP.length < 4 || newP.length > 12) {
+                showToast('New PIN must be between 4 and 12 characters', 'error');
+                newPinInput.focus();
                 return;
             }
             if (newP !== confP) {
                 showToast('New PIN and confirmation do not match', 'error');
+                confPinInput.focus();
                 return;
             }
 
-            localStorage.setItem('studio_admin_pin', newP);
-            showToast('Admin security PIN updated successfully!', 'success');
+            await storeSecurePin(newP);
+            showToast('Admin security PIN updated & cryptographically secured!', 'success');
             changePinForm.reset();
+
+            // Reset toggles back to password state
+            document.querySelectorAll('#form-change-pin .pin-toggle-btn i').forEach(icon => {
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            });
+            document.querySelectorAll('#form-change-pin input').forEach(input => {
+                input.type = 'password';
+            });
         });
     }
 }
