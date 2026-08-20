@@ -1,6 +1,6 @@
 /**
  * Portfolio Data Source of Truth
- * Generated via Portfolio Studio CMS on 2026-08-20T05:27:57.164Z
+ * Generated via Portfolio Studio CMS on 2026-08-20T06:02:37.149Z
  */
 
 const defaultPortfolioData = {
@@ -44,7 +44,7 @@ const defaultPortfolioData = {
                 "degree": "B.Sc. in Computer Science & Engineering",
                 "school": "University of Moratuwa",
                 "period": "2024 — Present (2nd Year)",
-                "gradeBadge": "SGPA: 3.70"
+                "gradeBadge": "GPA: 3.70"
             },
             {
                 "degree": "GCE Advanced Level (Physical Science)",
@@ -273,12 +273,7 @@ function getPortfolioData() {
                 ...parsed,
                 hero: { ...defaultPortfolioData.hero, ...(parsed.hero || {}) },
                 about: { ...defaultPortfolioData.about, ...(parsed.about || {}) },
-                contact: {
-                    ...defaultPortfolioData.contact,
-                    ...(parsed.contact || {}),
-                    socials: { ...(defaultPortfolioData.contact.socials || {}), ...(parsed.contact?.socials || {}) },
-                    emailService: { ...(defaultPortfolioData.contact.emailService || {}), ...(parsed.contact?.emailService || {}) }
-                },
+                contact: { ...defaultPortfolioData.contact, ...(parsed.contact || {}) },
                 meta: { ...defaultPortfolioData.meta, ...(parsed.meta || {}) }
             };
         }
