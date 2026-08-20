@@ -727,7 +727,9 @@ body.light-theme .filter-btn.active {
 }
 
 .project-img-placeholder {
-    height: 160px;
+    width: 100%;
+    aspect-ratio: 2 / 1;
+    height: auto;
     background: linear-gradient(135deg, var(--card-border), var(--highlight-bg));
     display: flex;
     justify-content: center;
@@ -1419,12 +1421,14 @@ body.light-theme .social-links a:hover {
 .project-card .project-img-placeholder img {
     width: 100%;
     height: 100%;
+    aspect-ratio: 2 / 1;
     object-fit: cover;
+    object-position: top center;
     transition: transform var(--transition-speed) ease;
 }
 
 .project-card:hover .project-img-placeholder img {
-    transform: scale(1.06);
+    transform: scale(1.05);
 }
 
 /* Admin Portal Link Styling */
